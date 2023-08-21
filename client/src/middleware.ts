@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
     isJwtValid = !!(await jwtDecode(req.cookies.get('auth')?.value || ''));
   } catch (e) {}
 
-  const authRoutes = ['/auth/signIn', '/auth/signUp', '/'];
+  const authRoutes = ['/auth/signIn', '/auth/signUp'];
 
   if (authRoutes.includes(req.nextUrl.pathname)) {
     if (isJwtValid) {
