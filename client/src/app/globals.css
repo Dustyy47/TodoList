@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Unbounded:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+* {
+  transition: 0.3s;
+}
+
+body {
+  @apply bg-gray-bg;
+}
+
+@layer components {
+  .lineBelow {
+    @apply relative after:absolute after:block after:w-[110%] after:bg-black-common after:h-[2px] after:left-[50%] after:translate-x-[-50%] after:bottom-[-.25rem];
+  }
+  .paragraph {
+    @apply text-sm font-montserrat leading-4;
+  }
+  .buttonText {
+    @apply text-sm font-unbounded;
+  }
+  .heading {
+    @apply font-bold text-lg font-unbounded;
+  }
+}

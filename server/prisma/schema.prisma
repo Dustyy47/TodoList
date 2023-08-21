@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String          @id @unique @default(uuid())
+  password               String
+  fullname               String
+  createdFriendRequests  FriendRequest[] @relation("friends_requests_created")
+  receivedFriendRequests FriendRequest[] @relation("friends_requests_recieved")
+  todoLists              TodoList[]
+}
+
+model FriendRequest {
+  status     FriendRequestStatus @default(WAITING)
+  creatorId  String
+  receiverId String
+  creator    User                @relation("friends_requests_created", fields: [creatorId], references: [id], onDelete: Cascade)
+  receiver   User                @relation("friends_requests_recieved", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@id([creatorId, receiverId])
+}
+
+model TodoList {
+  id       Int    @id @default(autoincrement())
+  authorId String
+  title    String
+  todos    Todo[]
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Todo {
+  id             Int      @id @default(autoincrement())
+  originalListId Int
+  title          String
+  isCompleted    Boolean
+  text           String
+  originalList   TodoList @relation(fields: [originalListId], references: [id], onDelete: Cascade)
+}
+
+enum FriendRequestStatus {
+  WAITING
+  DECLINED
+  ACCEPTED
+}
