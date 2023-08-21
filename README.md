@@ -30,3 +30,52 @@
    - Авторизованный пользователь может добавлять людей в свой список друзей, используя уникальный идентификатор (например, тэг, как в Telegram).
    - Пользователь может просматривать списки своих друзей.
 
+
+## Запуск проекта
+
+1. Клонируйте репозиторий на свой локальный компьютер.
+
+```shell
+git clone https://github.com/your/repository.git
+```
+
+2. Установите зависимости для бэкенда и фронтенда.
+
+```shell
+# Для фронтенда (перейдите в папку client)
+cd client
+npm install
+
+# Для бэкенда (перейдите в папку server)
+cd ../server
+npm install
+
+```
+
+3. Введите путь к своей postgres базе данных в server/.env
+
+
+```shell
+DATABASE_URL="postgresql://{your postrgres login}:{your postgres password}@localhost:5432/{your db name}?schema=public"
+```
+
+4. Cделайте миграции из prisma и Разверните docker контейнер
+
+В папке server:
+```shell
+prisma migrate dev
+docker-compose up
+```
+
+5. Запустите бэкенд и фронтенд.
+
+```shell
+# Для бэкенда (в папке server)
+npm run start:dev
+
+# Для фронтенда (в папке client)
+npm run dev
+```
+
+4. Откройте браузер и перейдите по адресу `http://localhost:3000` для доступа к вашему приложению.
+
